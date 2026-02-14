@@ -291,6 +291,7 @@
             touch-action: none;
             -webkit-tap-highlight-color: transparent;
             user-select: none;
+            -webkit-user-select: none;
         }
 
         .puzzle-piece:hover {
@@ -304,10 +305,12 @@
         }
 
         .puzzle-piece.active-touch {
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
             transition: none;
             z-index: 1000;
-            opacity: 0.9;
+            opacity: 0.95 !important;
+            cursor: grabbing;
+            transform: scale(1.05);
         }
 
         .drop-zone {
@@ -318,6 +321,12 @@
             background-color: rgba(255, 182, 182, 0.1);
             position: absolute;
             touch-action: none;
+            transition: background-color 0.2s ease;
+        }
+
+        .drop-zone.highlight {
+            background-color: rgba(255, 182, 182, 0.3) !important;
+            border: 3px solid #ff8e8e;
         }
 
         .success-message {
@@ -640,11 +649,8 @@
 
     <script>
         // ============================================
-        // CONFIGURATION - YOUR PHOTOS (UPDATED FOR GITHUB PAGES)
+        // CONFIGURATION - YOUR PHOTOS (IN MAIN REPO)
         // ============================================
-        
-        // IMPORTANT: Create a "photos" folder in your repository
-        // and put all 3 photos there, then use these paths:
         
         const myPhotos = [
             {
@@ -868,7 +874,9 @@
             initPuzzle(currentPhoto.url);
         }
         
-        // MOBILE-FRIENDLY PUZZLE GAME LOGIC
+        // ============================================
+        // FIXED MOBILE-FRIENDLY PUZZLE GAME LOGIC
+        // ============================================
         function initPuzzle(imageUrl) {
             const puzzleBoard = document.getElementById('puzzleBoard');
             const puzzlePieces = document.getElementById('puzzlePieces');
@@ -889,9 +897,10 @@
             const totalPieces = rows * cols;
             let placedPieces = 0;
             
+            // Store drop zones for reference
             const dropZones = [];
             
-            // Create drop zones
+            // Create drop zones on the puzzle board
             for (let row = 0; row < rows; row++) {
                 for (let col = 0; col < cols; col++) {
                     const dropZone = document.createElement('div');
@@ -910,39 +919,18 @@
                     
                     // Desktop events
                     dropZone.addEventListener('dragover', (e) => e.preventDefault());
-                    dropZone.addEventListener('dragleave', function() {
-                        this.style.backgroundColor = 'rgba(255, 182, 182, 0.1)';
-                    });
-                    
                     dropZone.addEventListener('drop', function(e) {
                         e.preventDefault();
-                        handlePieceDrop(this, e.dataTransfer.getData('text/plain'));
+                        const pieceId = e.dataTransfer.getData('text/plain');
+                        handlePieceDrop(this, pieceId);
                     });
-                    
-                    // Mobile touch events
-                    dropZone.addEventListener('touchend', function(e) {
-                        e.preventDefault();
-                        this.style.backgroundColor = 'rgba(255, 182, 182, 0.1)';
-                        
-                        const touch = e.changedTouches[0];
-                        const elementAtTouch = document.elementFromPoint(touch.clientX, touch.clientY);
-                        
-                        if (elementAtTouch && elementAtTouch.classList.contains('drop-zone')) {
-                            const activePiece = document.querySelector('.puzzle-piece.active-touch');
-                            if (activePiece) {
-                                handlePieceDrop(elementAtTouch, activePiece.id);
-                                activePiece.classList.remove('active-touch');
-                            }
-                        }
-                    }, { passive: false });
                 }
             }
             
+            // Handle piece drop (common function for both desktop and mobile)
             function handlePieceDrop(dropZone, pieceId) {
                 const draggedPiece = document.getElementById(pieceId);
                 if (!draggedPiece) return;
-                
-                dropZone.style.backgroundColor = 'rgba(255, 182, 182, 0.1)';
                 
                 const targetRow = parseInt(dropZone.dataset.row);
                 const targetCol = parseInt(dropZone.dataset.col);
@@ -950,10 +938,21 @@
                 const pieceCol = parseInt(draggedPiece.dataset.col);
                 
                 if (targetRow === pieceRow && targetCol === pieceCol) {
-                    if (draggedPiece.parentElement.classList.contains('drop-zone')) {
+                    // Check if piece is already placed
+                    if (draggedPiece.parentElement && draggedPiece.parentElement.classList.contains('drop-zone')) {
                         return;
                     }
                     
+                    // Remove any existing transform/position styles from touch drag
+                    draggedPiece.style.position = '';
+                    draggedPiece.style.left = '';
+                    draggedPiece.style.top = '';
+                    draggedPiece.style.zIndex = '';
+                    draggedPiece.style.transform = '';
+                    draggedPiece.style.width = '';
+                    draggedPiece.style.height = '';
+                    
+                    // Place in drop zone
                     dropZone.appendChild(draggedPiece);
                     draggedPiece.style.position = 'absolute';
                     draggedPiece.style.top = '0';
@@ -964,13 +963,29 @@
                     draggedPiece.style.cursor = 'default';
                     draggedPiece.draggable = false;
                     
+                    // Remove touch event listeners for placed pieces (by cloning and replacing)
+                    const newPiece = draggedPiece.cloneNode(true);
+                    newPiece.style.cssText = draggedPiece.style.cssText;
+                    newPiece.className = draggedPiece.className;
+                    newPiece.id = draggedPiece.id;
+                    newPiece.dataset.row = draggedPiece.dataset.row;
+                    newPiece.dataset.col = draggedPiece.dataset.col;
+                    draggedPiece.parentNode.replaceChild(newPiece, draggedPiece);
+                    
                     placedPieces++;
                     updateProgress(placedPieces, totalPieces);
+                    
+                    // Visual feedback
+                    dropZone.style.backgroundColor = 'rgba(182, 255, 182, 0.3)';
+                    setTimeout(() => {
+                        dropZone.style.backgroundColor = 'rgba(255, 182, 182, 0.1)';
+                    }, 300);
                     
                     if (placedPieces === totalPieces) {
                         setTimeout(showSuccessMessage, 1000);
                     }
                 } else {
+                    // Wrong placement feedback
                     dropZone.style.backgroundColor = 'rgba(255, 100, 100, 0.3)';
                     setTimeout(() => {
                         dropZone.style.backgroundColor = 'rgba(255, 182, 182, 0.1)';
@@ -986,6 +1001,14 @@
             // Touch event handlers
             let activePiece = null;
             let touchOffsetX = 0, touchOffsetY = 0;
+            let initialParent = null;
+            
+            // Global touch move handler to prevent page scrolling
+            document.addEventListener('touchmove', function(e) {
+                if (activePiece) {
+                    e.preventDefault();
+                }
+            }, { passive: false });
             
             function handleTouchStart(e) {
                 e.preventDefault();
@@ -998,6 +1021,10 @@
                 touchOffsetX = touch.clientX - rect.left;
                 touchOffsetY = touch.clientY - rect.top;
                 
+                // Store original parent
+                initialParent = piece.parentElement;
+                
+                // Make piece float
                 piece.classList.add('active-touch');
                 piece.style.position = 'fixed';
                 piece.style.width = `${rect.width}px`;
@@ -1005,8 +1032,9 @@
                 piece.style.left = `${touch.clientX - touchOffsetX}px`;
                 piece.style.top = `${touch.clientY - touchOffsetY}px`;
                 piece.style.zIndex = '1000';
-                piece.style.opacity = '0.9';
+                piece.style.opacity = '0.95';
                 piece.style.transform = 'scale(1.05)';
+                piece.style.pointerEvents = 'none'; // Allow elements below to be detected
                 
                 activePiece = piece;
             }
@@ -1018,6 +1046,21 @@
                 const touch = e.touches[0];
                 activePiece.style.left = `${touch.clientX - touchOffsetX}px`;
                 activePiece.style.top = `${touch.clientY - touchOffsetY}px`;
+                
+                // Highlight drop zones when piece is over them
+                const elementUnderTouch = document.elementFromPoint(touch.clientX, touch.clientY);
+                dropZones.forEach(zone => {
+                    zone.classList.remove('highlight');
+                });
+                
+                if (elementUnderTouch && elementUnderTouch.classList.contains('drop-zone')) {
+                    elementUnderTouch.classList.add('highlight');
+                } else if (elementUnderTouch && elementUnderTouch.closest) {
+                    const closestZone = elementUnderTouch.closest('.drop-zone');
+                    if (closestZone) {
+                        closestZone.classList.add('highlight');
+                    }
+                }
             }
             
             function handleTouchEnd(e) {
@@ -1025,16 +1068,29 @@
                 if (!activePiece) return;
                 
                 const touch = e.changedTouches[0];
-                const elementAtDrop = document.elementFromPoint(touch.clientX, touch.clientY);
                 
+                // Remove highlights
+                dropZones.forEach(zone => {
+                    zone.classList.remove('highlight');
+                });
+                
+                // Re-enable pointer events temporarily to detect element under touch
+                activePiece.style.pointerEvents = 'none';
+                const elementAtDrop = document.elementFromPoint(touch.clientX, touch.clientY);
+                activePiece.style.pointerEvents = 'none';
+                
+                console.log("Dropped on:", elementAtDrop);
+                
+                // Find drop zone
                 let dropZone = null;
                 if (elementAtDrop && elementAtDrop.classList.contains('drop-zone')) {
                     dropZone = elementAtDrop;
-                } else if (elementAtDrop && elementAtDrop.parentElement?.classList.contains('drop-zone')) {
-                    dropZone = elementAtDrop.parentElement;
+                } else if (elementAtDrop && elementAtDrop.closest) {
+                    dropZone = elementAtDrop.closest('.drop-zone');
                 }
                 
                 if (dropZone) {
+                    // Try to place in drop zone
                     handlePieceDrop(dropZone, activePiece.id);
                 } else {
                     // Return to original position
@@ -1046,10 +1102,17 @@
                     activePiece.style.zIndex = '';
                     activePiece.style.opacity = '';
                     activePiece.style.transform = '';
+                    activePiece.style.pointerEvents = '';
+                    
+                    // Return to original parent if not placed
+                    if (initialParent && !activePiece.parentElement.classList.contains('drop-zone')) {
+                        initialParent.appendChild(activePiece);
+                    }
                 }
                 
                 activePiece.classList.remove('active-touch');
                 activePiece = null;
+                initialParent = null;
             }
             
             // Create puzzle pieces
