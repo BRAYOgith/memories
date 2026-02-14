@@ -2,8 +2,8 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Ashley, will you be my Valentine? ❤️</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Valentine's Proposal ❤️</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         * {
@@ -35,7 +35,6 @@
             transition: all 0.5s ease;
             position: relative;
             overflow: hidden;
-            z-index: 10;
         }
 
         .container::before {
@@ -80,167 +79,77 @@
             50% { transform: scale(1.2); }
         }
 
-        /* Modern Landing Page Styles */
-        .landing-container {
-            min-height: 60vh;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
-            padding: 1rem;
+        .proposal-box {
+            background-color: #fff5f5;
+            border-radius: 15px;
+            padding: 25px;
+            margin: 20px 0;
+            border: 3px dashed #ffb6b6;
             position: relative;
-            z-index: 2;
         }
-        
-        .romantic-title {
-            font-size: 3.2rem;
-            color: #ff6b8b;
-            margin-bottom: 1rem;
-            font-weight: 700;
-            text-shadow: 3px 3px 0px rgba(255, 107, 139, 0.1);
-            animation: fadeInDown 1s ease-out;
-            line-height: 1.2;
+
+        .proposal-text {
+            font-size: 1.8rem;
+            color: #ff6b6b;
+            margin-bottom: 30px;
         }
-        
-        .subtitle {
-            font-size: 1.5rem;
-            color: #555;
-            margin-bottom: 2rem;
-            max-width: 600px;
-            animation: fadeInUp 1s ease-out 0.3s both;
-            font-weight: 300;
-        }
-        
-        .question-box {
-            background: rgba(255, 255, 255, 0.9);
-            backdrop-filter: blur(10px);
-            border-radius: 25px;
-            padding: 2.5rem;
-            margin: 1rem 0;
-            box-shadow: 0 15px 35px rgba(255, 107, 139, 0.15);
-            border: 1px solid rgba(255, 107, 139, 0.1);
-            animation: fadeIn 1.5s ease-out 0.6s both;
-            max-width: 600px;
-            width: 90%;
-        }
-        
-        .question-text {
-            font-size: 2.2rem;
-            color: #ff6b8b;
-            margin-bottom: 1.5rem;
-            font-weight: 600;
-        }
-        
-        .name-highlight {
+
+        .name {
+            font-weight: bold;
             color: #ff4757;
-            background: linear-gradient(120deg, rgba(255, 107, 139, 0.1), transparent);
-            padding: 0.2rem 0.8rem;
-            border-radius: 10px;
-            font-weight: 700;
-            display: inline-block;
+            text-decoration: underline;
+            animation: glow 2s infinite alternate;
         }
-        
-        /* Enhanced Button Styles */
-        .action-buttons {
+
+        @keyframes glow {
+            from { text-shadow: 0 0 5px #ff6b6b; }
+            to { text-shadow: 0 0 15px #ff6b6b, 0 0 20px #ff6b6b; }
+        }
+
+        .options {
             display: flex;
-            gap: 2rem;
-            margin-top: 2rem;
             justify-content: center;
+            gap: 30px;
+            margin-top: 30px;
             flex-wrap: wrap;
         }
-        
-        .romantic-btn {
-            padding: 1.2rem 3rem;
+
+        .option-btn {
+            padding: 15px 40px;
             border: none;
             border-radius: 50px;
             font-size: 1.3rem;
-            font-weight: 600;
+            font-weight: bold;
             cursor: pointer;
-            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            transition: all 0.3s ease;
             position: relative;
             overflow: hidden;
-            min-width: 180px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 0.8rem;
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+            min-width: 150px;
         }
-        
-        .romantic-btn.yes {
-            background: linear-gradient(135deg, #ff6b8b, #ff8e8e);
+
+        .yes-btn {
+            background: linear-gradient(to right, #ff6b6b, #ff8e8e);
             color: white;
+            box-shadow: 0 5px 15px rgba(255, 107, 107, 0.4);
         }
-        
-        .romantic-btn.no {
-            background: linear-gradient(135deg, #b8b8b8, #d0d0d0);
+
+        .no-btn {
+            background: linear-gradient(to right, #b0b0b0, #c9c9c9);
             color: white;
+            box-shadow: 0 5px 15px rgba(176, 176, 176, 0.4);
         }
-        
-        .romantic-btn:hover {
-            transform: translateY(-8px) scale(1.05);
-            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+
+        .option-btn:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
         }
-        
-        .romantic-btn.yes:hover {
-            background: linear-gradient(135deg, #ff4757, #ff6b8b);
-            box-shadow: 0 15px 30px rgba(255, 107, 139, 0.3);
+
+        .yes-btn:hover {
+            background: linear-gradient(to right, #ff4757, #ff6b6b);
         }
-        
-        /* Background hearts */
-        .bg-hearts {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            overflow: hidden;
-            z-index: 1;
-            pointer-events: none;
-        }
-        
-        .bg-heart {
-            position: absolute;
-            color: rgba(255, 107, 139, 0.15);
-            font-size: 1.5rem;
-            animation: floatSlow 15s infinite linear;
-        }
-        
-        @keyframes floatSlow {
-            0% {
-                transform: translateY(100vh) rotate(0deg);
-            }
-            100% {
-                transform: translateY(-100px) rotate(360deg);
-            }
-        }
-        
-        @keyframes fadeInDown {
-            from {
-                opacity: 0;
-                transform: translateY(-30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-        
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-        
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
+
+        .no-btn:hover {
+            background: linear-gradient(to right, #a0a0a0, #b0b0b0);
         }
 
         .message {
@@ -268,7 +177,6 @@
             background-color: #fff9f9;
             position: relative;
             overflow: hidden;
-            touch-action: none;
         }
 
         .puzzle-pieces {
@@ -287,11 +195,7 @@
             border: 2px solid #ff8e8e;
             border-radius: 8px;
             cursor: grab;
-            transition: transform 0.2s;
-            touch-action: none;
-            -webkit-tap-highlight-color: transparent;
-            user-select: none;
-            -webkit-user-select: none;
+            transition: transform 0.3s;
         }
 
         .puzzle-piece:hover {
@@ -304,15 +208,6 @@
             cursor: grabbing;
         }
 
-        .puzzle-piece.active-touch {
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
-            transition: none;
-            z-index: 1000;
-            opacity: 0.95 !important;
-            cursor: grabbing;
-            transform: scale(1.05);
-        }
-
         .drop-zone {
             width: 120px;
             height: 120px;
@@ -320,13 +215,6 @@
             border-radius: 8px;
             background-color: rgba(255, 182, 182, 0.1);
             position: absolute;
-            touch-action: none;
-            transition: background-color 0.2s ease;
-        }
-
-        .drop-zone.highlight {
-            background-color: rgba(255, 182, 182, 0.3) !important;
-            border: 3px solid #ff8e8e;
         }
 
         .success-message {
@@ -471,7 +359,6 @@
             font-weight: bold;
         }
 
-        /* Mobile Optimizations */
         @media (max-width: 768px) {
             .container {
                 padding: 20px;
@@ -481,52 +368,18 @@
                 font-size: 2rem;
             }
             
-            .romantic-title {
-                font-size: 2.4rem;
-            }
-            
-            .subtitle {
-                font-size: 1.2rem;
-            }
-            
-            .question-text {
-                font-size: 1.8rem;
-            }
-            
-            .action-buttons {
-                flex-direction: column;
-                align-items: center;
-                gap: 1rem;
-            }
-            
-            .romantic-btn {
-                width: 100%;
-                max-width: 280px;
-                padding: 1rem 2rem;
-                font-size: 1.2rem;
-            }
-            
             .puzzle-board {
                 width: 300px;
                 height: 300px;
             }
             
-            .puzzle-pieces {
-                display: grid;
-                grid-template-columns: repeat(3, 1fr);
-                gap: 8px;
-                max-width: 300px;
-                margin: 15px auto;
-            }
-            
-            .puzzle-piece {
-                width: 95px;
-                height: 95px;
-            }
-            
-            .drop-zone {
+            .puzzle-piece, .drop-zone {
                 width: 70px;
                 height: 70px;
+            }
+            
+            .puzzle-pieces {
+                max-width: 320px;
             }
             
             .options {
@@ -542,32 +395,6 @@
             .proposal-text {
                 font-size: 1.5rem;
             }
-            
-            .instruction {
-                font-size: 1rem;
-                padding: 12px;
-            }
-        }
-
-        @media (max-width: 380px) {
-            .puzzle-board {
-                width: 260px;
-                height: 260px;
-            }
-            
-            .puzzle-pieces {
-                max-width: 260px;
-            }
-            
-            .puzzle-piece {
-                width: 82px;
-                height: 82px;
-            }
-            
-            .drop-zone {
-                width: 60px;
-                height: 60px;
-            }
         }
     </style>
 </head>
@@ -575,34 +402,20 @@
     <div class="hearts-container" id="heartsContainer"></div>
     
     <div class="container" id="mainContainer">
-        <div class="bg-hearts" id="bgHearts"></div>
+        <h1><i class="fas fa-heart heart"></i> Happy Valentine's Day! <i class="fas fa-heart heart"></i></h1>
         
-        <!-- Modern Landing Page -->
-        <div class="landing-container" id="proposalBox">
-            <h1 class="romantic-title">Will you be my Valentine?</h1>
-            <p class="subtitle">A special question for someone very special</p>
+        <div class="proposal-box" id="proposalBox">
+            <p class="proposal-text">Dear <span class="name" id="girlfriendName">My Love</span>,</p>
+            <p class="proposal-text">Will you be my Valentine?</p>
             
-            <div class="question-box">
-                <p class="question-text">
-                    Dear <span class="name-highlight" id="girlfriendName">Ashley</span>,
-                    <br>Will you make me the happiest person
-                    <br>and be my Valentine?
-                </p>
-                
-                <div class="action-buttons">
-                    <button class="romantic-btn yes" id="yesBtn">
-                        <i class="fas fa-heart"></i> Yes, Absolutely!
-                    </button>
-                    <button class="romantic-btn no" id="noBtn">
-                        <i class="far fa-frown"></i> Maybe Later
-                    </button>
-                </div>
-                
-                <div class="message" id="message" style="margin-top: 1.5rem;"></div>
+            <div class="options">
+                <button class="option-btn yes-btn" id="yesBtn">Yes! <i class="fas fa-heart"></i></button>
+                <button class="option-btn no-btn" id="noBtn">No <i class="far fa-frown"></i></button>
             </div>
+            
+            <div class="message" id="message"></div>
         </div>
         
-        <!-- Puzzle Container -->
         <div class="puzzle-container" id="puzzleContainer">
             <h2>Complete Our Puzzle <i class="fas fa-puzzle-piece"></i></h2>
             <p>Drag and drop the puzzle pieces to the correct positions to reveal a special picture!</p>
@@ -614,7 +427,7 @@
             </div>
             
             <div class="instruction">
-                <i class="fas fa-lightbulb"></i> On mobile: Tap and hold a piece, then drag it to its spot
+                <i class="fas fa-lightbulb"></i> Drag each puzzle piece from the bottom to its correct position on the board above.
             </div>
             
             <div class="progress-bar">
@@ -637,7 +450,6 @@
             </div>
         </div>
         
-        <!-- Success Message -->
         <div class="success-message" id="successMessage">
             <h2>You Did It! <i class="fas fa-heart heart"></i></h2>
             <img id="finalPhoto" src="" alt="Our Special Memory" class="responsive-img" onerror="showImageError(this)">
@@ -649,21 +461,31 @@
 
     <script>
         // ============================================
-        // CONFIGURATION - YOUR PHOTOS (IN MAIN REPO)
+        // CONFIGURATION - PUT YOUR LOCAL PHOTOS HERE
         // ============================================
+        
+        // PUT YOUR LOCAL PHOTO PATHS HERE
+        // Option 1: Photos in same folder as HTML file:
+        // url: "photo1.jpg"
+        
+        // Option 2: Photos in a subfolder called "photos":
+        // url: "photos/photo1.jpg"
+        
+        // Option 3: Full path (might not work in all browsers):
+        // url: "file:///C:\Projects\for-lovers\public\assets\memories\IMG_20260201_144538_869.jpg"
         
         const myPhotos = [
             {
-                url: "IMG_20260201_145331_354.jpg",
+                url: "IMG_20260201_145331_354.jpg",  // CHANGE THIS to your photo filename
                 puzzleMessage: "This is from our first Karura Forest visit date - I was so nervous but you made it perfect",
                 successMessage: `My Queen Ashley,<br><br>
                 This picture reminds me of our first date - that magical moment when I knew you were someone special. 
                 I was so nervous, but your smile put me at ease instantly.<br><br>
                 Just like you completed this puzzle, you've completed me in ways I never imagined possible. 
-                You are my greatest joy and my most beautiful adventure. Happy Valentine's Day!`
+                You are my greatest joy and my most beautiful adventure. Happy valentine's Day!`
             },
             {
-                url: "IMG_20260201_144457_959.jpg",
+                url: "IMG_20260201_144457_959.jpg",  // CHANGE THIS to your photo filename  
                 puzzleMessage: "Cute sunset - Remember how cute you looked that day?",
                 successMessage: `My beautiful Valentine,<br><br>
                 This Karura visit was one of our happiest days together. Remember how we kissed till our mouths were sore?
@@ -671,7 +493,7 @@
                 Your smile lights up my world, and your heart makes me want to be a better person every single day. I love you endlessly.`
             },
             {
-                url: "IMG_20260201_144538_869.jpg",
+                url: "IMG_20260201_144538_869.jpg",  // CHANGE THIS to your photo filename
                 puzzleMessage: "That cavy place inside karura - our special place",
                 successMessage: `My love, my partner, my everything,<br><br>
                 The quiet serene cavy environment where we've shared dreams, secrets, and hopes for the future.
@@ -723,6 +545,7 @@
                 heart.className = 'floating-heart';
                 heart.innerHTML = '<i class="fas fa-heart"></i>';
                 
+                // Random position and animation
                 const startX = Math.random() * 100;
                 const duration = 3 + Math.random() * 7;
                 const delay = Math.random() * 5;
@@ -735,30 +558,6 @@
             }
         }
 
-        // Create background hearts for landing page
-        function createBackgroundHearts() {
-            const bgHearts = document.getElementById('bgHearts');
-            const heartCount = 20;
-            
-            for (let i = 0; i < heartCount; i++) {
-                const heart = document.createElement('div');
-                heart.className = 'bg-heart';
-                heart.innerHTML = '<i class="fas fa-heart"></i>';
-                
-                const left = Math.random() * 100;
-                const size = 10 + Math.random() * 20;
-                const duration = 20 + Math.random() * 20;
-                const delay = Math.random() * 5;
-                
-                heart.style.left = `${left}vw`;
-                heart.style.fontSize = `${size}px`;
-                heart.style.animationDuration = `${duration}s`;
-                heart.style.animationDelay = `${delay}s`;
-                
-                bgHearts.appendChild(heart);
-            }
-        }
-
         // Track which photo is currently being shown
         let currentPhotoIndex = 0;
         
@@ -767,7 +566,7 @@
             const savedIndex = localStorage.getItem('valentinePhotoIndex');
             if (savedIndex !== null) {
                 let index = parseInt(savedIndex);
-                index = (index + 1) % myPhotos.length;
+                index = (index + 1) % myPhotos.length; // Move to next photo
                 localStorage.setItem('valentinePhotoIndex', index.toString());
                 return index;
             } else {
@@ -776,7 +575,7 @@
             }
         }
         
-        // DOM Elements
+        // Valentine proposal logic
         const proposalBox = document.getElementById('proposalBox');
         const puzzleContainer = document.getElementById('puzzleContainer');
         const successMessage = document.getElementById('successMessage');
@@ -792,8 +591,8 @@
         const finalMessage = document.getElementById('finalMessage');
         const finalPhotoCounter = document.getElementById('finalPhotoCounter');
         
-        // Set girlfriend's name
-        girlfriendName.textContent = "Ashley";
+        // Set girlfriend's name (you can change this)
+        girlfriendName.textContent = "My Love";
         
         // Set current photo index
         currentPhotoIndex = getCurrentPhotoIndex();
@@ -815,15 +614,18 @@
         noBtn.addEventListener('click', function() {
             noClicks++;
             
+            // Change message
             message.textContent = messages[Math.min(noClicks - 1, messages.length - 1)];
             message.style.opacity = "1";
             
+            // Make No button smaller and Yes button bigger
             const yesWidth = 150 + (noClicks * 10);
             const noWidth = Math.max(100 - (noClicks * 10), 30);
             
             yesBtn.style.minWidth = `${yesWidth}px`;
             noBtn.style.minWidth = `${noWidth}px`;
             
+            // Move No button to random position after 3 clicks
             if (noClicks >= 3) {
                 const containerWidth = proposalBox.offsetWidth;
                 const containerHeight = proposalBox.offsetHeight;
@@ -835,11 +637,14 @@
                 noBtn.style.left = `${randomX}px`;
                 noBtn.style.top = `${randomY}px`;
                 
+                // Change No button text
                 noBtn.innerHTML = `No <i class="far fa-frown"></i>`;
                 
+                // Hide No button after many clicks
                 if (noClicks >= 8) {
                     noBtn.style.display = 'none';
                     message.textContent = "Okay, I give up... but I still love you!";
+                    // Auto-proceed to puzzle after a delay
                     setTimeout(() => {
                         startPuzzleGame();
                     }, 2000);
@@ -853,8 +658,11 @@
             message.style.opacity = "1";
             message.style.color = "#ff4757";
             
+            // Change Yes button text and add animation
             yesBtn.innerHTML = 'Of course! <i class="fas fa-heart"></i>';
+            yesBtn.classList.add('yes-btn');
             
+            // Proceed to puzzle after a delay
             setTimeout(() => {
                 startPuzzleGame();
             }, 1500);
@@ -865,25 +673,28 @@
             proposalBox.style.display = 'none';
             puzzleContainer.style.display = 'flex';
             
+            // Hide fallback message
             document.getElementById('fallbackMessage').style.display = 'none';
             
+            // Set the photo message and counter
             const currentPhoto = myPhotos[currentPhotoIndex];
             photoMessage.textContent = currentPhoto.puzzleMessage;
             photoCounter.textContent = `Photo ${currentPhotoIndex + 1} of ${myPhotos.length}`;
             
+            // Initialize the puzzle with the current photo
             initPuzzle(currentPhoto.url);
         }
         
-        // ============================================
-        // FIXED MOBILE-FRIENDLY PUZZLE GAME LOGIC
-        // ============================================
+        // Puzzle game logic
         function initPuzzle(imageUrl) {
             const puzzleBoard = document.getElementById('puzzleBoard');
             const puzzlePieces = document.getElementById('puzzlePieces');
             
+            // Clear any existing content
             puzzleBoard.innerHTML = '';
             puzzlePieces.innerHTML = '';
             
+            // Test if image loads
             testImage(imageUrl).then(loadsSuccessfully => {
                 if (!loadsSuccessfully) {
                     console.error("Failed to load image:", imageUrl);
@@ -892,13 +703,11 @@
                 }
             });
             
+            // Puzzle configuration
             const rows = 3;
             const cols = 3;
             const totalPieces = rows * cols;
             let placedPieces = 0;
-            
-            // Store drop zones for reference
-            const dropZones = [];
             
             // Create drop zones on the puzzle board
             for (let row = 0; row < rows; row++) {
@@ -908,6 +717,7 @@
                     dropZone.dataset.row = row;
                     dropZone.dataset.col = col;
                     
+                    // Position the drop zone
                     const zoneSize = puzzleBoard.offsetWidth / cols;
                     dropZone.style.width = `${zoneSize - 4}px`;
                     dropZone.style.height = `${zoneSize - 4}px`;
@@ -915,207 +725,72 @@
                     dropZone.style.top = `${row * zoneSize + 2}px`;
                     
                     puzzleBoard.appendChild(dropZone);
-                    dropZones.push(dropZone);
                     
-                    // Desktop events
-                    dropZone.addEventListener('dragover', (e) => e.preventDefault());
+                    // Make drop zone accept draggable elements
+                    dropZone.addEventListener('dragover', function(e) {
+                        e.preventDefault();
+                        this.style.backgroundColor = 'rgba(255, 182, 182, 0.3)';
+                    });
+                    
+                    dropZone.addEventListener('dragleave', function() {
+                        this.style.backgroundColor = 'rgba(255, 182, 182, 0.1)';
+                    });
+                    
                     dropZone.addEventListener('drop', function(e) {
                         e.preventDefault();
+                        this.style.backgroundColor = 'rgba(255, 182, 182, 0.1)';
+                        
                         const pieceId = e.dataTransfer.getData('text/plain');
-                        handlePieceDrop(this, pieceId);
+                        const draggedPiece = document.getElementById(pieceId);
+                        
+                        // Check if this is the correct drop zone for this piece
+                        const targetRow = parseInt(this.dataset.row);
+                        const targetCol = parseInt(this.dataset.col);
+                        const pieceRow = parseInt(draggedPiece.dataset.row);
+                        const pieceCol = parseInt(draggedPiece.dataset.col);
+                        
+                        if (targetRow === pieceRow && targetCol === pieceCol) {
+                            // Correct placement
+                            this.appendChild(draggedPiece);
+                            draggedPiece.style.position = 'absolute';
+                            draggedPiece.style.top = '0';
+                            draggedPiece.style.left = '0';
+                            draggedPiece.style.width = '100%';
+                            draggedPiece.style.height = '100%';
+                            draggedPiece.style.border = 'none';
+                            draggedPiece.style.cursor = 'default';
+                            
+                            // Update progress
+                            placedPieces++;
+                            updateProgress(placedPieces, totalPieces);
+                            
+                            // Check if puzzle is complete
+                            if (placedPieces === totalPieces) {
+                                setTimeout(() => {
+                                    showSuccessMessage();
+                                }, 1000);
+                            }
+                        } else {
+                            // Wrong placement - give feedback
+                            this.style.backgroundColor = 'rgba(255, 100, 100, 0.3)';
+                            setTimeout(() => {
+                                this.style.backgroundColor = 'rgba(255, 182, 182, 0.1)';
+                            }, 300);
+                        }
                     });
-                }
-            }
-            
-            // Handle piece drop (common function for both desktop and mobile)
-            function handlePieceDrop(dropZone, pieceId) {
-                const draggedPiece = document.getElementById(pieceId);
-                if (!draggedPiece) return;
-                
-                const targetRow = parseInt(dropZone.dataset.row);
-                const targetCol = parseInt(dropZone.dataset.col);
-                const pieceRow = parseInt(draggedPiece.dataset.row);
-                const pieceCol = parseInt(draggedPiece.dataset.col);
-                
-                if (targetRow === pieceRow && targetCol === pieceCol) {
-                    // Check if piece is already placed
-                    if (draggedPiece.parentElement && draggedPiece.parentElement.classList.contains('drop-zone')) {
-                        return;
-                    }
-                    
-                    // Remove any existing transform/position styles from touch drag
-                    draggedPiece.style.position = '';
-                    draggedPiece.style.left = '';
-                    draggedPiece.style.top = '';
-                    draggedPiece.style.zIndex = '';
-                    draggedPiece.style.transform = '';
-                    draggedPiece.style.width = '';
-                    draggedPiece.style.height = '';
-                    
-                    // Place in drop zone
-                    dropZone.appendChild(draggedPiece);
-                    draggedPiece.style.position = 'absolute';
-                    draggedPiece.style.top = '0';
-                    draggedPiece.style.left = '0';
-                    draggedPiece.style.width = '100%';
-                    draggedPiece.style.height = '100%';
-                    draggedPiece.style.border = 'none';
-                    draggedPiece.style.cursor = 'default';
-                    draggedPiece.draggable = false;
-                    
-                    // Remove touch event listeners for placed pieces (by cloning and replacing)
-                    const newPiece = draggedPiece.cloneNode(true);
-                    newPiece.style.cssText = draggedPiece.style.cssText;
-                    newPiece.className = draggedPiece.className;
-                    newPiece.id = draggedPiece.id;
-                    newPiece.dataset.row = draggedPiece.dataset.row;
-                    newPiece.dataset.col = draggedPiece.dataset.col;
-                    draggedPiece.parentNode.replaceChild(newPiece, draggedPiece);
-                    
-                    placedPieces++;
-                    updateProgress(placedPieces, totalPieces);
-                    
-                    // Visual feedback
-                    dropZone.style.backgroundColor = 'rgba(182, 255, 182, 0.3)';
-                    setTimeout(() => {
-                        dropZone.style.backgroundColor = 'rgba(255, 182, 182, 0.1)';
-                    }, 300);
-                    
-                    if (placedPieces === totalPieces) {
-                        setTimeout(showSuccessMessage, 1000);
-                    }
-                } else {
-                    // Wrong placement feedback
-                    dropZone.style.backgroundColor = 'rgba(255, 100, 100, 0.3)';
-                    setTimeout(() => {
-                        dropZone.style.backgroundColor = 'rgba(255, 182, 182, 0.1)';
-                    }, 300);
                 }
             }
             
             // Create shuffled puzzle pieces
             const pieceOrder = [];
-            for (let i = 0; i < totalPieces; i++) pieceOrder.push(i);
+            for (let i = 0; i < totalPieces; i++) {
+                pieceOrder.push(i);
+            }
+            
+            // Shuffle the pieces
             shuffleArray(pieceOrder);
             
-            // Touch event handlers
-            let activePiece = null;
-            let touchOffsetX = 0, touchOffsetY = 0;
-            let initialParent = null;
-            
-            // Global touch move handler to prevent page scrolling
-            document.addEventListener('touchmove', function(e) {
-                if (activePiece) {
-                    e.preventDefault();
-                }
-            }, { passive: false });
-            
-            function handleTouchStart(e) {
-                e.preventDefault();
-                const piece = e.target;
-                if (!piece.classList.contains('puzzle-piece') || piece.draggable === false) return;
-                
-                const touch = e.touches[0];
-                const rect = piece.getBoundingClientRect();
-                
-                touchOffsetX = touch.clientX - rect.left;
-                touchOffsetY = touch.clientY - rect.top;
-                
-                // Store original parent
-                initialParent = piece.parentElement;
-                
-                // Make piece float
-                piece.classList.add('active-touch');
-                piece.style.position = 'fixed';
-                piece.style.width = `${rect.width}px`;
-                piece.style.height = `${rect.height}px`;
-                piece.style.left = `${touch.clientX - touchOffsetX}px`;
-                piece.style.top = `${touch.clientY - touchOffsetY}px`;
-                piece.style.zIndex = '1000';
-                piece.style.opacity = '0.95';
-                piece.style.transform = 'scale(1.05)';
-                piece.style.pointerEvents = 'none'; // Allow elements below to be detected
-                
-                activePiece = piece;
-            }
-            
-            function handleTouchMove(e) {
-                e.preventDefault();
-                if (!activePiece) return;
-                
-                const touch = e.touches[0];
-                activePiece.style.left = `${touch.clientX - touchOffsetX}px`;
-                activePiece.style.top = `${touch.clientY - touchOffsetY}px`;
-                
-                // Highlight drop zones when piece is over them
-                const elementUnderTouch = document.elementFromPoint(touch.clientX, touch.clientY);
-                dropZones.forEach(zone => {
-                    zone.classList.remove('highlight');
-                });
-                
-                if (elementUnderTouch && elementUnderTouch.classList.contains('drop-zone')) {
-                    elementUnderTouch.classList.add('highlight');
-                } else if (elementUnderTouch && elementUnderTouch.closest) {
-                    const closestZone = elementUnderTouch.closest('.drop-zone');
-                    if (closestZone) {
-                        closestZone.classList.add('highlight');
-                    }
-                }
-            }
-            
-            function handleTouchEnd(e) {
-                e.preventDefault();
-                if (!activePiece) return;
-                
-                const touch = e.changedTouches[0];
-                
-                // Remove highlights
-                dropZones.forEach(zone => {
-                    zone.classList.remove('highlight');
-                });
-                
-                // Re-enable pointer events temporarily to detect element under touch
-                activePiece.style.pointerEvents = 'none';
-                const elementAtDrop = document.elementFromPoint(touch.clientX, touch.clientY);
-                activePiece.style.pointerEvents = 'none';
-                
-                console.log("Dropped on:", elementAtDrop);
-                
-                // Find drop zone
-                let dropZone = null;
-                if (elementAtDrop && elementAtDrop.classList.contains('drop-zone')) {
-                    dropZone = elementAtDrop;
-                } else if (elementAtDrop && elementAtDrop.closest) {
-                    dropZone = elementAtDrop.closest('.drop-zone');
-                }
-                
-                if (dropZone) {
-                    // Try to place in drop zone
-                    handlePieceDrop(dropZone, activePiece.id);
-                } else {
-                    // Return to original position
-                    activePiece.style.position = '';
-                    activePiece.style.width = '';
-                    activePiece.style.height = '';
-                    activePiece.style.left = '';
-                    activePiece.style.top = '';
-                    activePiece.style.zIndex = '';
-                    activePiece.style.opacity = '';
-                    activePiece.style.transform = '';
-                    activePiece.style.pointerEvents = '';
-                    
-                    // Return to original parent if not placed
-                    if (initialParent && !activePiece.parentElement.classList.contains('drop-zone')) {
-                        initialParent.appendChild(activePiece);
-                    }
-                }
-                
-                activePiece.classList.remove('active-touch');
-                activePiece = null;
-                initialParent = null;
-            }
-            
-            // Create puzzle pieces
+            // Create the puzzle pieces
             for (let i = 0; i < totalPieces; i++) {
                 const pieceIndex = pieceOrder[i];
                 const row = Math.floor(pieceIndex / cols);
@@ -1127,6 +802,7 @@
                 piece.dataset.row = row;
                 piece.dataset.col = col;
                 
+                // Set background image for the piece
                 const pieceSize = puzzleBoard.offsetWidth / cols;
                 const bgX = -col * pieceSize;
                 const bgY = -row * pieceSize;
@@ -1135,7 +811,16 @@
                 piece.style.backgroundPosition = `${bgX}px ${bgY}px`;
                 piece.style.backgroundSize = `${puzzleBoard.offsetWidth}px ${puzzleBoard.offsetHeight}px`;
                 
-                // Desktop events
+                // Add error handling for puzzle pieces
+                piece.addEventListener('error', function() {
+                    this.style.backgroundColor = '#ffb6b6';
+                    this.style.display = 'flex';
+                    this.style.alignItems = 'center';
+                    this.style.justifyContent = 'center';
+                    this.innerHTML = '<i class="fas fa-heart" style="color: #ff6b6b; font-size: 2rem;"></i>';
+                });
+                
+                // Make piece draggable
                 piece.draggable = true;
                 piece.addEventListener('dragstart', function(e) {
                     e.dataTransfer.setData('text/plain', this.id);
@@ -1146,36 +831,36 @@
                     this.classList.remove('dragging');
                 });
                 
-                // Mobile touch events
-                piece.addEventListener('touchstart', handleTouchStart, { passive: false });
-                piece.addEventListener('touchmove', handleTouchMove, { passive: false });
-                piece.addEventListener('touchend', handleTouchEnd, { passive: false });
-                piece.addEventListener('touchcancel', handleTouchEnd, { passive: false });
-                
                 puzzlePieces.appendChild(piece);
             }
             
+            // Initialize progress
             updateProgress(0, totalPieces);
         }
         
+        // Update progress bar and text
         function updateProgress(current, total) {
             const percentage = (current / total) * 100;
             progressFill.style.width = `${percentage}%`;
             progressText.textContent = `Progress: ${current}/${total} pieces placed`;
         }
         
+        // Show the success message
         function showSuccessMessage() {
             puzzleContainer.style.display = 'none';
             successMessage.style.display = 'flex';
             
+            // Set the final photo and message based on current photo index
             const currentPhoto = myPhotos[currentPhotoIndex];
             finalPhoto.src = currentPhoto.url;
             finalMessage.innerHTML = currentPhoto.successMessage;
             finalPhotoCounter.textContent = `Photo ${currentPhotoIndex + 1} of ${myPhotos.length}`;
             
+            // Add final hearts animation
             createFinalHearts();
         }
         
+        // Create final celebration hearts
         function createFinalHearts() {
             const heartsContainer = document.getElementById('heartsContainer');
             
@@ -1194,11 +879,15 @@
                     
                     heartsContainer.appendChild(heart);
                     
-                    setTimeout(() => heart.remove(), duration * 1000);
+                    // Remove heart after animation completes
+                    setTimeout(() => {
+                        heart.remove();
+                    }, duration * 1000);
                 }, i * 100);
             }
         }
         
+        // Utility function to shuffle array
         function shuffleArray(array) {
             for (let i = array.length - 1; i > 0; i--) {
                 const j = Math.floor(Math.random() * (i + 1));
@@ -1210,9 +899,11 @@
         // Initialize the page
         document.addEventListener('DOMContentLoaded', function() {
             createFloatingHearts();
-            createBackgroundHearts();
             
-            setInterval(createFloatingHearts, 3000);
+            // Add some initial floating hearts
+            setInterval(() => {
+                createFloatingHearts();
+            }, 3000);
         });
     </script>
 </body>
