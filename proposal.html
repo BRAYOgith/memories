@@ -1,0 +1,910 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Valentine's Proposal ❤️</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Arial Rounded MT Bold', 'Arial', sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #ff9a9e 0%, #fad0c4 100%);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 800px;
+            width: 100%;
+            background-color: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+            padding: 30px;
+            text-align: center;
+            transition: all 0.5s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 10px;
+            background: linear-gradient(90deg, #ff6b6b, #ff8e8e, #ffb6b6);
+        }
+
+        h1 {
+            color: #ff6b6b;
+            margin-bottom: 20px;
+            font-size: 2.5rem;
+            text-shadow: 2px 2px 0px rgba(255, 182, 182, 0.5);
+        }
+
+        h2 {
+            color: #ff6b6b;
+            margin-bottom: 15px;
+            font-size: 1.8rem;
+        }
+
+        p {
+            color: #555;
+            font-size: 1.2rem;
+            margin-bottom: 25px;
+            line-height: 1.5;
+        }
+
+        .heart {
+            color: #ff6b6b;
+            font-size: 2rem;
+            margin: 0 5px;
+            animation: heartbeat 1.5s infinite;
+        }
+
+        @keyframes heartbeat {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.2); }
+        }
+
+        .proposal-box {
+            background-color: #fff5f5;
+            border-radius: 15px;
+            padding: 25px;
+            margin: 20px 0;
+            border: 3px dashed #ffb6b6;
+            position: relative;
+        }
+
+        .proposal-text {
+            font-size: 1.8rem;
+            color: #ff6b6b;
+            margin-bottom: 30px;
+        }
+
+        .name {
+            font-weight: bold;
+            color: #ff4757;
+            text-decoration: underline;
+            animation: glow 2s infinite alternate;
+        }
+
+        @keyframes glow {
+            from { text-shadow: 0 0 5px #ff6b6b; }
+            to { text-shadow: 0 0 15px #ff6b6b, 0 0 20px #ff6b6b; }
+        }
+
+        .options {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin-top: 30px;
+            flex-wrap: wrap;
+        }
+
+        .option-btn {
+            padding: 15px 40px;
+            border: none;
+            border-radius: 50px;
+            font-size: 1.3rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            min-width: 150px;
+        }
+
+        .yes-btn {
+            background: linear-gradient(to right, #ff6b6b, #ff8e8e);
+            color: white;
+            box-shadow: 0 5px 15px rgba(255, 107, 107, 0.4);
+        }
+
+        .no-btn {
+            background: linear-gradient(to right, #b0b0b0, #c9c9c9);
+            color: white;
+            box-shadow: 0 5px 15px rgba(176, 176, 176, 0.4);
+        }
+
+        .option-btn:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        .yes-btn:hover {
+            background: linear-gradient(to right, #ff4757, #ff6b6b);
+        }
+
+        .no-btn:hover {
+            background: linear-gradient(to right, #a0a0a0, #b0b0b0);
+        }
+
+        .message {
+            margin-top: 20px;
+            font-size: 1.2rem;
+            color: #ff6b6b;
+            font-weight: bold;
+            min-height: 30px;
+            opacity: 0;
+            transition: opacity 0.5s;
+        }
+
+        .puzzle-container {
+            display: none;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .puzzle-board {
+            width: 500px;
+            height: 500px;
+            border: 3px solid #ffb6b6;
+            border-radius: 10px;
+            margin: 20px auto;
+            background-color: #fff9f9;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .puzzle-pieces {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 20px;
+            max-width: 520px;
+        }
+
+        .puzzle-piece {
+            width: 120px;
+            height: 120px;
+            background-size: 500px 500px;
+            border: 2px solid #ff8e8e;
+            border-radius: 8px;
+            cursor: grab;
+            transition: transform 0.3s;
+        }
+
+        .puzzle-piece:hover {
+            transform: scale(1.05);
+            box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .puzzle-piece.dragging {
+            opacity: 0.7;
+            cursor: grabbing;
+        }
+
+        .drop-zone {
+            width: 120px;
+            height: 120px;
+            border: 2px dashed #ff8e8e;
+            border-radius: 8px;
+            background-color: rgba(255, 182, 182, 0.1);
+            position: absolute;
+        }
+
+        .success-message {
+            display: none;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 30px;
+            background-color: #fff5f5;
+            border-radius: 15px;
+            margin-top: 30px;
+            border: 3px solid #ffb6b6;
+            animation: fadeIn 1s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .success-message h2 {
+            color: #ff6b6b;
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+        }
+
+        .success-message p {
+            font-size: 1.3rem;
+            color: #555;
+            margin-bottom: 15px;
+            max-width: 600px;
+        }
+
+        .photo-counter {
+            margin-top: 15px;
+            font-size: 1rem;
+            color: #ff8e8e;
+            background: rgba(255, 182, 182, 0.2);
+            padding: 8px 15px;
+            border-radius: 20px;
+            display: inline-block;
+        }
+
+        .refresh-note {
+            margin-top: 10px;
+            font-size: 1rem;
+            color: #777;
+            font-style: italic;
+        }
+
+        .hearts-container {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            overflow: hidden;
+            z-index: 0;
+        }
+
+        .floating-heart {
+            position: absolute;
+            color: #ff6b6b;
+            font-size: 1.5rem;
+            opacity: 0.7;
+            animation: float 5s infinite linear;
+        }
+
+        @keyframes float {
+            0% {
+                transform: translateY(100vh) rotate(0deg);
+                opacity: 0;
+            }
+            10% {
+                opacity: 0.7;
+            }
+            90% {
+                opacity: 0.7;
+            }
+            100% {
+                transform: translateY(-100px) rotate(360deg);
+                opacity: 0;
+            }
+        }
+
+        .instruction {
+            background-color: #fff0f0;
+            padding: 15px;
+            border-radius: 10px;
+            margin: 20px 0;
+            font-size: 1.1rem;
+            color: #ff6b6b;
+            border-left: 5px solid #ff6b6b;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 10px;
+            background-color: #f0f0f0;
+            border-radius: 5px;
+            margin: 20px 0;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(to right, #ff9a9e, #fad0c4);
+            width: 0%;
+            transition: width 0.5s ease;
+        }
+
+        .responsive-img {
+            max-width: 100%;
+            border-radius: 10px;
+            margin: 20px 0;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            border: 3px solid white;
+            max-height: 400px;
+            object-fit: cover;
+        }
+
+        .photo-info {
+            background: rgba(255, 255, 255, 0.9);
+            padding: 15px;
+            border-radius: 10px;
+            margin-top: 15px;
+            border-left: 4px solid #ff6b6b;
+        }
+
+        .heart-icon {
+            color: #ff6b6b;
+            margin-right: 8px;
+        }
+
+        .fallback-message {
+            background: #fff0f0;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+            color: #ff6b6b;
+            font-weight: bold;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 20px;
+            }
+            
+            h1 {
+                font-size: 2rem;
+            }
+            
+            .puzzle-board {
+                width: 300px;
+                height: 300px;
+            }
+            
+            .puzzle-piece, .drop-zone {
+                width: 70px;
+                height: 70px;
+            }
+            
+            .puzzle-pieces {
+                max-width: 320px;
+            }
+            
+            .options {
+                flex-direction: column;
+                align-items: center;
+                gap: 15px;
+            }
+            
+            .option-btn {
+                width: 200px;
+            }
+            
+            .proposal-text {
+                font-size: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="hearts-container" id="heartsContainer"></div>
+    
+    <div class="container" id="mainContainer">
+        <h1><i class="fas fa-heart heart"></i> Happy Valentine's Day! <i class="fas fa-heart heart"></i></h1>
+        
+        <div class="proposal-box" id="proposalBox">
+            <p class="proposal-text">Dear <span class="name" id="girlfriendName">My Love</span>,</p>
+            <p class="proposal-text">Will you be my Valentine?</p>
+            
+            <div class="options">
+                <button class="option-btn yes-btn" id="yesBtn">Yes! <i class="fas fa-heart"></i></button>
+                <button class="option-btn no-btn" id="noBtn">No <i class="far fa-frown"></i></button>
+            </div>
+            
+            <div class="message" id="message"></div>
+        </div>
+        
+        <div class="puzzle-container" id="puzzleContainer">
+            <h2>Complete Our Puzzle <i class="fas fa-puzzle-piece"></i></h2>
+            <p>Drag and drop the puzzle pieces to the correct positions to reveal a special picture!</p>
+            
+            <div class="photo-info">
+                <p><i class="fas fa-heart heart-icon"></i> <span id="photoMessage">This picture holds a special memory for us</span></p>
+                <div class="photo-counter" id="photoCounter">Photo 1 of 3</div>
+                <p class="refresh-note">Refresh the page after completing to see another special photo!</p>
+            </div>
+            
+            <div class="instruction">
+                <i class="fas fa-lightbulb"></i> Drag each puzzle piece from the bottom to its correct position on the board above.
+            </div>
+            
+            <div class="progress-bar">
+                <div class="progress-fill" id="progressFill"></div>
+            </div>
+            <p id="progressText">Progress: 0/9 pieces placed</p>
+            
+            <div class="puzzle-board" id="puzzleBoard">
+                <!-- Drop zones will be generated here -->
+            </div>
+            
+            <div class="puzzle-pieces" id="puzzlePieces">
+                <!-- Puzzle pieces will be generated here -->
+            </div>
+            
+            <!-- Fallback if image doesn't load -->
+            <div class="fallback-message" id="fallbackMessage" style="display: none;">
+                <p>Oops! Couldn't load the photo. Make sure your photo files are in the correct folder!</p>
+                <p>Expected photo path: <span id="expectedPath"></span></p>
+            </div>
+        </div>
+        
+        <div class="success-message" id="successMessage">
+            <h2>You Did It! <i class="fas fa-heart heart"></i></h2>
+            <img id="finalPhoto" src="" alt="Our Special Memory" class="responsive-img" onerror="showImageError(this)">
+            <div id="finalMessage"></div>
+            <div class="photo-counter" id="finalPhotoCounter"></div>
+            <p class="refresh-note">Refresh to see another special photo and message!</p>
+        </div>
+    </div>
+
+    <script>
+        // ============================================
+        // CONFIGURATION - PUT YOUR LOCAL PHOTOS HERE
+        // ============================================
+        
+        // PUT YOUR LOCAL PHOTO PATHS HERE
+        // Option 1: Photos in same folder as HTML file:
+        // url: "photo1.jpg"
+        
+        // Option 2: Photos in a subfolder called "photos":
+        // url: "photos/photo1.jpg"
+        
+        // Option 3: Full path (might not work in all browsers):
+        // url: "file:///C:\Projects\for-lovers\public\assets\memories\IMG_20260201_144538_869.jpg"
+        
+        const myPhotos = [
+            {
+                url: "file:///C:/Projects/for-lovers/public/assets/memories/IMG_20260201_145331_354.jpg",  // CHANGE THIS to your photo filename
+                puzzleMessage: "This is from our first Karura Forest visit date - I was so nervous but you made it perfect",
+                successMessage: `My Queen Ashley,<br><br>
+                This picture reminds me of our first date - that magical moment when I knew you were someone special. 
+                I was so nervous, but your smile put me at ease instantly.<br><br>
+                Just like you completed this puzzle, you've completed me in ways I never imagined possible. 
+                You are my greatest joy and my most beautiful adventure. Happy valentine's Day!`
+            },
+            {
+                url: "file:///C:/Projects/for-lovers/public/assets/memories/IMG_20260201_144457_959.jpg",  // CHANGE THIS to your photo filename  
+                puzzleMessage: "Cute sunset - Remember how cute you looked that day?",
+                successMessage: `My beautiful Valentine,<br><br>
+                This Karura visit was one of our happiest days together. Remember how we kissed till our mouths were sore?
+                With you, every moment feels like a perfect puzzle piece fitting into place.<br><br>
+                Your smile lights up my world, and your heart makes me want to be a better person every single day. I love you endlessly.`
+            },
+            {
+                url: "file:///C:/Projects/for-lovers/public/assets/memories/IMG_20260201_144538_869.jpg",  // CHANGE THIS to your photo filename
+                puzzleMessage: "That cavy place inside karura - our special place",
+                successMessage: `My love, my partner, my everything,<br><br>
+                The quiet serene cavy environment where we've shared dreams, secrets, and hopes for the future.
+                This picture represents all the quiet moments that meant the most.<br><br>
+                Just like you patiently completed this puzzle, I promise to be patient, loving, 
+                and devoted to you every single day. You are my forever Valentine.`
+            }
+        ];
+        
+        // ============================================
+        // END OF CONFIGURATION
+        // ============================================
+        
+        // Function to handle image loading errors
+        function showImageError(imgElement) {
+            console.log("Failed to load image:", imgElement.src);
+            
+            // Show fallback message
+            const fallback = document.getElementById('fallbackMessage');
+            if (fallback) {
+                fallback.style.display = 'block';
+                document.getElementById('expectedPath').textContent = imgElement.src;
+            }
+            
+            // Replace broken image with a heart icon
+            imgElement.style.display = 'none';
+            const heartContainer = document.createElement('div');
+            heartContainer.innerHTML = '<i class="fas fa-heart-broken" style="font-size: 4rem; color: #ff6b6b;"></i><p style="margin-top: 10px;">Photo couldn\'t load, but my love for you is still perfect!</p>';
+            imgElement.parentNode.insertBefore(heartContainer, imgElement.nextSibling);
+        }
+        
+        // Check if image loads successfully
+        function testImage(url) {
+            return new Promise((resolve) => {
+                const img = new Image();
+                img.onload = () => resolve(true);
+                img.onerror = () => resolve(false);
+                img.src = url;
+            });
+        }
+        
+        // Create floating hearts
+        function createFloatingHearts() {
+            const heartsContainer = document.getElementById('heartsContainer');
+            const heartCount = 15;
+            
+            for (let i = 0; i < heartCount; i++) {
+                const heart = document.createElement('div');
+                heart.className = 'floating-heart';
+                heart.innerHTML = '<i class="fas fa-heart"></i>';
+                
+                // Random position and animation
+                const startX = Math.random() * 100;
+                const duration = 3 + Math.random() * 7;
+                const delay = Math.random() * 5;
+                
+                heart.style.left = `${startX}vw`;
+                heart.style.animationDuration = `${duration}s`;
+                heart.style.animationDelay = `${delay}s`;
+                
+                heartsContainer.appendChild(heart);
+            }
+        }
+
+        // Track which photo is currently being shown
+        let currentPhotoIndex = 0;
+        
+        // Check if we have a saved photo index in localStorage
+        function getCurrentPhotoIndex() {
+            const savedIndex = localStorage.getItem('valentinePhotoIndex');
+            if (savedIndex !== null) {
+                let index = parseInt(savedIndex);
+                index = (index + 1) % myPhotos.length; // Move to next photo
+                localStorage.setItem('valentinePhotoIndex', index.toString());
+                return index;
+            } else {
+                localStorage.setItem('valentinePhotoIndex', '0');
+                return 0;
+            }
+        }
+        
+        // Valentine proposal logic
+        const proposalBox = document.getElementById('proposalBox');
+        const puzzleContainer = document.getElementById('puzzleContainer');
+        const successMessage = document.getElementById('successMessage');
+        const yesBtn = document.getElementById('yesBtn');
+        const noBtn = document.getElementById('noBtn');
+        const message = document.getElementById('message');
+        const girlfriendName = document.getElementById('girlfriendName');
+        const progressFill = document.getElementById('progressFill');
+        const progressText = document.getElementById('progressText');
+        const photoMessage = document.getElementById('photoMessage');
+        const photoCounter = document.getElementById('photoCounter');
+        const finalPhoto = document.getElementById('finalPhoto');
+        const finalMessage = document.getElementById('finalMessage');
+        const finalPhotoCounter = document.getElementById('finalPhotoCounter');
+        
+        // Set girlfriend's name (you can change this)
+        girlfriendName.textContent = "My Love";
+        
+        // Set current photo index
+        currentPhotoIndex = getCurrentPhotoIndex();
+        
+        let noClicks = 0;
+        const messages = [
+            "Not this time!",
+            "Are you sure?",
+            "Please reconsider!",
+            "Try again!",
+            "Pretty please?",
+            "I'll keep asking!",
+            "You're breaking my heart!",
+            "One more chance?",
+            "Last try, I promise!"
+        ];
+        
+        // Handle No button click
+        noBtn.addEventListener('click', function() {
+            noClicks++;
+            
+            // Change message
+            message.textContent = messages[Math.min(noClicks - 1, messages.length - 1)];
+            message.style.opacity = "1";
+            
+            // Make No button smaller and Yes button bigger
+            const yesWidth = 150 + (noClicks * 10);
+            const noWidth = Math.max(100 - (noClicks * 10), 30);
+            
+            yesBtn.style.minWidth = `${yesWidth}px`;
+            noBtn.style.minWidth = `${noWidth}px`;
+            
+            // Move No button to random position after 3 clicks
+            if (noClicks >= 3) {
+                const containerWidth = proposalBox.offsetWidth;
+                const containerHeight = proposalBox.offsetHeight;
+                
+                const randomX = Math.random() * (containerWidth - noBtn.offsetWidth);
+                const randomY = Math.random() * (containerHeight - noBtn.offsetHeight);
+                
+                noBtn.style.position = 'absolute';
+                noBtn.style.left = `${randomX}px`;
+                noBtn.style.top = `${randomY}px`;
+                
+                // Change No button text
+                noBtn.innerHTML = `No <i class="far fa-frown"></i>`;
+                
+                // Hide No button after many clicks
+                if (noClicks >= 8) {
+                    noBtn.style.display = 'none';
+                    message.textContent = "Okay, I give up... but I still love you!";
+                    // Auto-proceed to puzzle after a delay
+                    setTimeout(() => {
+                        startPuzzleGame();
+                    }, 2000);
+                }
+            }
+        });
+        
+        // Handle Yes button click
+        yesBtn.addEventListener('click', function() {
+            message.textContent = "Yay! You made me the happiest person! ❤️";
+            message.style.opacity = "1";
+            message.style.color = "#ff4757";
+            
+            // Change Yes button text and add animation
+            yesBtn.innerHTML = 'Of course! <i class="fas fa-heart"></i>';
+            yesBtn.classList.add('yes-btn');
+            
+            // Proceed to puzzle after a delay
+            setTimeout(() => {
+                startPuzzleGame();
+            }, 1500);
+        });
+        
+        // Start the puzzle game
+        function startPuzzleGame() {
+            proposalBox.style.display = 'none';
+            puzzleContainer.style.display = 'flex';
+            
+            // Hide fallback message
+            document.getElementById('fallbackMessage').style.display = 'none';
+            
+            // Set the photo message and counter
+            const currentPhoto = myPhotos[currentPhotoIndex];
+            photoMessage.textContent = currentPhoto.puzzleMessage;
+            photoCounter.textContent = `Photo ${currentPhotoIndex + 1} of ${myPhotos.length}`;
+            
+            // Initialize the puzzle with the current photo
+            initPuzzle(currentPhoto.url);
+        }
+        
+        // Puzzle game logic
+        function initPuzzle(imageUrl) {
+            const puzzleBoard = document.getElementById('puzzleBoard');
+            const puzzlePieces = document.getElementById('puzzlePieces');
+            
+            // Clear any existing content
+            puzzleBoard.innerHTML = '';
+            puzzlePieces.innerHTML = '';
+            
+            // Test if image loads
+            testImage(imageUrl).then(loadsSuccessfully => {
+                if (!loadsSuccessfully) {
+                    console.error("Failed to load image:", imageUrl);
+                    document.getElementById('fallbackMessage').style.display = 'block';
+                    document.getElementById('expectedPath').textContent = imageUrl;
+                }
+            });
+            
+            // Puzzle configuration
+            const rows = 3;
+            const cols = 3;
+            const totalPieces = rows * cols;
+            let placedPieces = 0;
+            
+            // Create drop zones on the puzzle board
+            for (let row = 0; row < rows; row++) {
+                for (let col = 0; col < cols; col++) {
+                    const dropZone = document.createElement('div');
+                    dropZone.className = 'drop-zone';
+                    dropZone.dataset.row = row;
+                    dropZone.dataset.col = col;
+                    
+                    // Position the drop zone
+                    const zoneSize = puzzleBoard.offsetWidth / cols;
+                    dropZone.style.width = `${zoneSize - 4}px`;
+                    dropZone.style.height = `${zoneSize - 4}px`;
+                    dropZone.style.left = `${col * zoneSize + 2}px`;
+                    dropZone.style.top = `${row * zoneSize + 2}px`;
+                    
+                    puzzleBoard.appendChild(dropZone);
+                    
+                    // Make drop zone accept draggable elements
+                    dropZone.addEventListener('dragover', function(e) {
+                        e.preventDefault();
+                        this.style.backgroundColor = 'rgba(255, 182, 182, 0.3)';
+                    });
+                    
+                    dropZone.addEventListener('dragleave', function() {
+                        this.style.backgroundColor = 'rgba(255, 182, 182, 0.1)';
+                    });
+                    
+                    dropZone.addEventListener('drop', function(e) {
+                        e.preventDefault();
+                        this.style.backgroundColor = 'rgba(255, 182, 182, 0.1)';
+                        
+                        const pieceId = e.dataTransfer.getData('text/plain');
+                        const draggedPiece = document.getElementById(pieceId);
+                        
+                        // Check if this is the correct drop zone for this piece
+                        const targetRow = parseInt(this.dataset.row);
+                        const targetCol = parseInt(this.dataset.col);
+                        const pieceRow = parseInt(draggedPiece.dataset.row);
+                        const pieceCol = parseInt(draggedPiece.dataset.col);
+                        
+                        if (targetRow === pieceRow && targetCol === pieceCol) {
+                            // Correct placement
+                            this.appendChild(draggedPiece);
+                            draggedPiece.style.position = 'absolute';
+                            draggedPiece.style.top = '0';
+                            draggedPiece.style.left = '0';
+                            draggedPiece.style.width = '100%';
+                            draggedPiece.style.height = '100%';
+                            draggedPiece.style.border = 'none';
+                            draggedPiece.style.cursor = 'default';
+                            
+                            // Update progress
+                            placedPieces++;
+                            updateProgress(placedPieces, totalPieces);
+                            
+                            // Check if puzzle is complete
+                            if (placedPieces === totalPieces) {
+                                setTimeout(() => {
+                                    showSuccessMessage();
+                                }, 1000);
+                            }
+                        } else {
+                            // Wrong placement - give feedback
+                            this.style.backgroundColor = 'rgba(255, 100, 100, 0.3)';
+                            setTimeout(() => {
+                                this.style.backgroundColor = 'rgba(255, 182, 182, 0.1)';
+                            }, 300);
+                        }
+                    });
+                }
+            }
+            
+            // Create shuffled puzzle pieces
+            const pieceOrder = [];
+            for (let i = 0; i < totalPieces; i++) {
+                pieceOrder.push(i);
+            }
+            
+            // Shuffle the pieces
+            shuffleArray(pieceOrder);
+            
+            // Create the puzzle pieces
+            for (let i = 0; i < totalPieces; i++) {
+                const pieceIndex = pieceOrder[i];
+                const row = Math.floor(pieceIndex / cols);
+                const col = pieceIndex % cols;
+                
+                const piece = document.createElement('div');
+                piece.className = 'puzzle-piece';
+                piece.id = `piece-${i}`;
+                piece.dataset.row = row;
+                piece.dataset.col = col;
+                
+                // Set background image for the piece
+                const pieceSize = puzzleBoard.offsetWidth / cols;
+                const bgX = -col * pieceSize;
+                const bgY = -row * pieceSize;
+                
+                piece.style.backgroundImage = `url("${imageUrl}")`;
+                piece.style.backgroundPosition = `${bgX}px ${bgY}px`;
+                piece.style.backgroundSize = `${puzzleBoard.offsetWidth}px ${puzzleBoard.offsetHeight}px`;
+                
+                // Add error handling for puzzle pieces
+                piece.addEventListener('error', function() {
+                    this.style.backgroundColor = '#ffb6b6';
+                    this.style.display = 'flex';
+                    this.style.alignItems = 'center';
+                    this.style.justifyContent = 'center';
+                    this.innerHTML = '<i class="fas fa-heart" style="color: #ff6b6b; font-size: 2rem;"></i>';
+                });
+                
+                // Make piece draggable
+                piece.draggable = true;
+                piece.addEventListener('dragstart', function(e) {
+                    e.dataTransfer.setData('text/plain', this.id);
+                    this.classList.add('dragging');
+                });
+                
+                piece.addEventListener('dragend', function() {
+                    this.classList.remove('dragging');
+                });
+                
+                puzzlePieces.appendChild(piece);
+            }
+            
+            // Initialize progress
+            updateProgress(0, totalPieces);
+        }
+        
+        // Update progress bar and text
+        function updateProgress(current, total) {
+            const percentage = (current / total) * 100;
+            progressFill.style.width = `${percentage}%`;
+            progressText.textContent = `Progress: ${current}/${total} pieces placed`;
+        }
+        
+        // Show the success message
+        function showSuccessMessage() {
+            puzzleContainer.style.display = 'none';
+            successMessage.style.display = 'flex';
+            
+            // Set the final photo and message based on current photo index
+            const currentPhoto = myPhotos[currentPhotoIndex];
+            finalPhoto.src = currentPhoto.url;
+            finalMessage.innerHTML = currentPhoto.successMessage;
+            finalPhotoCounter.textContent = `Photo ${currentPhotoIndex + 1} of ${myPhotos.length}`;
+            
+            // Add final hearts animation
+            createFinalHearts();
+        }
+        
+        // Create final celebration hearts
+        function createFinalHearts() {
+            const heartsContainer = document.getElementById('heartsContainer');
+            
+            for (let i = 0; i < 50; i++) {
+                setTimeout(() => {
+                    const heart = document.createElement('div');
+                    heart.className = 'floating-heart';
+                    heart.innerHTML = '<i class="fas fa-heart"></i>';
+                    heart.style.color = i % 3 === 0 ? '#ff6b6b' : (i % 3 === 1 ? '#ff8e8e' : '#ffb6b6');
+                    
+                    const startX = Math.random() * 100;
+                    const duration = 2 + Math.random() * 3;
+                    
+                    heart.style.left = `${startX}vw`;
+                    heart.style.animationDuration = `${duration}s`;
+                    
+                    heartsContainer.appendChild(heart);
+                    
+                    // Remove heart after animation completes
+                    setTimeout(() => {
+                        heart.remove();
+                    }, duration * 1000);
+                }, i * 100);
+            }
+        }
+        
+        // Utility function to shuffle array
+        function shuffleArray(array) {
+            for (let i = array.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [array[i], array[j]] = [array[j], array[i]];
+            }
+            return array;
+        }
+        
+        // Initialize the page
+        document.addEventListener('DOMContentLoaded', function() {
+            createFloatingHearts();
+            
+            // Add some initial floating hearts
+            setInterval(() => {
+                createFloatingHearts();
+            }, 3000);
+        });
+    </script>
+</body>
+</html>
